@@ -1,0 +1,45 @@
+name: Node.js CI - lab2
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "Lab2_Git_Actions/**"
+      - ".github/workflows/nodejs_CI.yml"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "Lab2_Git_Actions/**"
+      - ".github/workflows/nodejs_CI.yml"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Lab2_Git_Actions
+
+    strategy:
+      matrix:
+        node: [18, 20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Node.js version from matrix
+        run: echo "Using Node.js version ${{ matrix.node }}"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test --ignore-scripts=false
+        env:
+          CI: true
