@@ -9,4 +9,6 @@ assert.notStrictEqual(subtract(0, 0), 1, 'subtract(0, 0) should NOT be 1');
 assert.strictEqual(multiply(-2, 3), -6, 'multiply(-2, 3) should be -6');
 
 assert.strictEqual(divide(6, 2), 3, 'divide(6, 2) should be 3');
-assert.throws(() => divide(1, 0), /Division by zero is not
+assert.throws(() => divide(1, 0), /Division by zero is not allowed./, 'divide(1, 0) should throw an error');
+
+console.log("All tests passed.");
